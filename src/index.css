@@ -1,0 +1,811 @@
+/* ============================================
+   FLEUR PINK & BLUE - TECH EXPO DEVLOG
+   Soft Floral Aesthetic with Tech Edge
+   ============================================ */
+
+@import "tailwindcss";
+@plugin "daisyui";
+
+/* ============================================
+   THEME VARIABLES - Fleur Pink & Blue
+   ============================================ */
+
+@theme {
+  /* Fleur Pink Palette */
+  --color-fleur-50: #fdf2f8;
+  --color-fleur-100: #fce7f3;
+  --color-fleur-200: #fbcfe8;
+  --color-fleur-300: #f9a8d4;
+  --color-fleur-400: #f472b6;
+  --color-fleur-500: #ec4899;
+  --color-fleur-600: #db2777;
+  --color-fleur-700: #be185d;
+  
+  /* Soft Blue Palette */
+  --color-bleu-50: #eff6ff;
+  --color-bleu-100: #dbeafe;
+  --color-bleu-200: #bfdbfe;
+  --color-bleu-300: #93c5fd;
+  --color-bleu-400: #60a5fa;
+  --color-bleu-500: #3b82f6;
+  --color-bleu-600: #2563eb;
+  --color-bleu-700: #1d4ed8;
+  
+  /* Core Backgrounds */
+  --color-bg-primary: #faf5f7; /* Soft pink-white */
+  --color-bg-secondary: #ffffff;
+  --color-bg-dark: #1a1a2e;
+  
+  /* Gradients */
+  --gradient-fleur: linear-gradient(135deg, #f472b6 0%, #ec4899 50%, #db2777 100%);
+  --gradient-bleu: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
+  --gradient-mixed: linear-gradient(135deg, #f472b6 0%, #ec4899 25%, #3b82f6 75%, #2563eb 100%);
+  --gradient-soft: linear-gradient(145deg, rgba(244,114,182,0.1) 0%, rgba(96,165,250,0.1) 100%);
+  
+  /* Text */
+  --color-text-primary: #1f2937;
+  --color-text-secondary: #6b7280;
+  --color-text-muted: #9ca3af;
+  
+  /* Fonts */
+  --font-display: 'Playfair Display', 'Cormorant Garamond', serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  /* Animation */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+:root {
+  font-family: var(--font-body);
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: 
+    radial-gradient(ellipse at top left, rgba(244,114,182,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(96,165,250,0.15) 0%, transparent 50%),
+    var(--color-bg-primary);
+}
+
+/* ============================================
+   FLORAL BACKGROUND PATTERNS
+   ============================================ */
+
+.fleur-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Floating Petals */
+.petal {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: var(--gradient-fleur);
+  border-radius: 0 100% 0 100%;
+  opacity: 0.1;
+  animation: float-petal 20s ease-in-out infinite;
+}
+
+.petal:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; transform: rotate(45deg); }
+.petal:nth-child(2) { top: 20%; right: 10%; animation-delay: 5s; transform: rotate(-20deg); background: var(--gradient-bleu); }
+.petal:nth-child(3) { top: 60%; left: 8%; animation-delay: 10s; transform: rotate(30deg); }
+.petal:nth-child(4) { bottom: 20%; right: 5%; animation-delay: 15s; transform: rotate(-45deg); background: var(--gradient-bleu); }
+.petal:nth-child(5) { top: 40%; right: 15%; animation-delay: 7s; transform: rotate(60deg); }
+
+@keyframes float-petal {
+  0%, 100% { 
+    transform: translate(0, 0) rotate(45deg); 
+    opacity: 0.1;
+  }
+  25% { 
+    transform: translate(30px, -30px) rotate(60deg); 
+    opacity: 0.15;
+  }
+  50% { 
+    transform: translate(-20px, 20px) rotate(30deg); 
+    opacity: 0.1;
+  }
+  75% { 
+    transform: translate(20px, 10px) rotate(50deg); 
+    opacity: 0.12;
+  }
+}
+
+/* Soft Orbs */
+.orb-fleur {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: -2;
+}
+
+.orb-pink {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(236,72,153,0.4) 0%, transparent 70%);
+  top: -200px;
+  right: -200px;
+  animation: pulse-orb 8s ease-in-out infinite;
+}
+
+.orb-blue {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(59,130,246,0.4) 0%, transparent 70%);
+  bottom: -150px;
+  left: -150px;
+  animation: pulse-orb 10s ease-in-out infinite reverse;
+}
+
+@keyframes pulse-orb {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.1); opacity: 0.4; }
+}
+
+/* ============================================
+   LAYOUT
+   ============================================ */
+
+.devlog-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s var(--ease-smooth), transform 0.8s var(--ease-smooth);
+}
+
+.devlog-container.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   HERO WITH CENTER PHOTO
+   ============================================ */
+
+.hero-fleur {
+  text-align: center;
+  margin-bottom: 60px;
+  position: relative;
+}
+.photo-frame {
+  /* Must have these for centering */
+  margin: 0 auto;        /* Centers horizontally */
+  display: flex;         /* Enables flexbox centering */
+  align-items: center;   /* Centers vertically */
+  justify-content: center; /* Centers horizontally */
+  
+  /* Size and style */
+  width: 280px;
+  height: 280px;
+  position: relative;    /* For absolute children */
+}
+
+.photo-frame img {
+  /* Image fills frame and stays centered */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;     /* Crops to fill, keeps aspect ratio */
+  object-position: center; /* Centers the crop */
+  border-radius: 50%;
+  display: block;        /* Removes extra space below image */
+}
+
+/* Photo Frame - Centerpiece */
+.photo-frame {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  margin: 0 auto 40px;
+  border-radius: 50%;
+  padding: 8px;
+  background: var(--gradient-mixed);
+  box-shadow: 
+    0 20px 60px rgba(236,72,153,0.3),
+    0 20px 60px rgba(59,130,246,0.2);
+  animation: photo-glow 4s ease-in-out infinite;
+}
+
+@keyframes photo-glow {
+  0%, 100% { 
+    box-shadow: 
+      0 20px 60px rgba(236,72,153,0.3),
+      0 20px 60px rgba(59,130,246,0.2);
+  }
+  50% { 
+    box-shadow: 
+      0 30px 80px rgba(236,72,153,0.4),
+      0 30px 80px rgba(59,130,246,0.3);
+  }
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid white;
+  transition: transform 0.4s var(--ease-bounce);
+}
+
+.photo-frame:hover img {
+  transform: scale(1.05);
+}
+
+/* Decorative Ring */
+.photo-ring {
+  position: absolute;
+  inset: -20px;
+  border: 2px dashed rgba(236,72,153,0.3);
+  border-radius: 50%;
+  animation: spin 20s linear infinite;
+}
+
+.photo-ring-2 {
+  position: absolute;
+  inset: -35px;
+  border: 2px dashed rgba(59,130,246,0.2);
+  border-radius: 50%;
+  animation: spin 25s linear infinite reverse;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Floating Flowers Around Photo */
+.flower-deco {
+  position: absolute;
+  font-size: 2rem;
+  animation: float-flower 6s ease-in-out infinite;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+
+.flower-deco-1 { top: -10px; left: 20px; animation-delay: 0s; }
+.flower-deco-2 { top: 20px; right: 10px; animation-delay: 2s; }
+.flower-deco-3 { bottom: 20px; left: 10px; animation-delay: 4s; }
+.flower-deco-4 { bottom: -10px; right: 30px; animation-delay: 1s; }
+
+@keyframes float-flower {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(10deg); }
+}
+
+/* Hero Text */
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  margin: 0 0 1rem;
+  background: var(--gradient-mixed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: var(--color-text-secondary);
+  max-width: 500px;
+  margin: 0 auto 2rem;
+  font-weight: 400;
+}
+
+/* Fleur Badge */
+.badge-fleur {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(236,72,153,0.3);
+  border-radius: 100px;
+  color: var(--color-fleur-600);
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 15px rgba(236,72,153,0.15);
+}
+
+.badge-fleur::before {
+  content: '🌸';
+  font-size: 1rem;
+}
+
+/* ============================================
+   BUTTONS - Fleur Style
+   ============================================ */
+
+.btn-fleur {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-bounce);
+  text-decoration: none;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary-fleur {
+  background: var(--gradient-fleur);
+  color: white;
+  box-shadow: 0 10px 30px rgba(236,72,153,0.3);
+}
+
+.btn-primary-fleur:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(236,72,153,0.4);
+}
+
+.btn-secondary-fleur {
+  background: white;
+  color: var(--color-bleu-600);
+  border: 2px solid var(--color-bleu-300);
+  box-shadow: 0 4px 15px rgba(59,130,246,0.1);
+}
+
+.btn-secondary-fleur:hover {
+  background: var(--color-bleu-50);
+  border-color: var(--color-bleu-500);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59,130,246,0.2);
+}
+
+/* ============================================
+   BENTO GRID - Soft Cards
+   ============================================ */
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 3rem 0;
+}
+
+.bento-cell {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(236,72,153,0.1);
+  border-radius: 24px;
+  padding: 2rem;
+  transition: all 0.4s var(--ease-bounce);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 4px 20px rgba(0,0,0,0.05),
+    0 1px 3px rgba(0,0,0,0.02);
+}
+
+.bento-cell::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-mixed);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.bento-cell:hover::before {
+  opacity: 1;
+}
+
+.bento-cell:hover {
+  transform: translateY(-8px);
+  border-color: rgba(236,72,153,0.2);
+  box-shadow: 
+    0 20px 40px rgba(236,72,153,0.1),
+    0 20px 40px rgba(59,130,246,0.1);
+}
+
+.cell-full { grid-column: span 3; }
+.cell-half { grid-column: span 2; }
+.cell-third { grid-column: span 1; }
+
+@media (max-width: 768px) {
+  .bento-grid { grid-template-columns: 1fr; }
+  .cell-full, .cell-half, .cell-third { grid-column: span 1; }
+  .photo-frame { width: 220px; height: 220px; }
+}
+
+/* Stagger Animation */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s var(--ease-smooth) forwards;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+
+h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 2rem;
+  position: relative;
+  display: inline-block;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: var(--gradient-mixed);
+  border-radius: 2px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: var(--color-fleur-700);
+}
+
+p {
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+}
+
+/* ============================================
+   CODE BLOCKS - Soft Theme
+   ============================================ */
+
+.code-block {
+  background: #faf5f7;
+  border: 1px solid rgba(236,72,153,0.15);
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 1rem 0;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: rgba(236,72,153,0.05);
+  border-bottom: 1px solid rgba(236,72,153,0.1);
+}
+
+.code-dots {
+  color: var(--color-fleur-400);
+  font-size: 0.8rem;
+  letter-spacing: 4px;
+}
+
+.code-lang {
+  font-size: 0.75rem;
+  color: var(--color-fleur-600);
+  text-transform: uppercase;
+  font-weight: 600;
+  background: rgba(236,72,153,0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 100px;
+}
+
+.code-block pre {
+  padding: 1.5rem;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  overflow-x: auto;
+  color: var(--color-text-primary);
+}
+
+/* Syntax Highlighting - Soft */
+.code-block .keyword { color: var(--color-fleur-600); font-weight: 600; }
+.code-block .object { color: var(--color-bleu-600); }
+.code-block .string { color: #059669; }
+.code-block .comment { color: var(--color-text-muted); font-style: italic; }
+.code-block .number { color: var(--color-fleur-500); }
+
+/* ============================================
+   ENDPOINT CARDS - Fleur Style
+   ============================================ */
+
+.endpoint-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: white;
+  border-left: 4px solid;
+  border-radius: 0 16px 16px 0;
+  margin-bottom: 0.75rem;
+  transition: all 0.3s var(--ease-bounce);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.endpoint-card:hover {
+  transform: translateX(8px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.endpoint-method {
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  min-width: 70px;
+  text-align: center;
+}
+
+.method-get { 
+  background: rgba(96,165,250,0.15); 
+  color: var(--color-bleu-600);
+  border: 1px solid rgba(96,165,250,0.3);
+}
+.method-post { 
+  background: rgba(236,72,153,0.15); 
+  color: var(--color-fleur-600);
+  border: 1px solid rgba(236,72,153,0.3);
+}
+.method-put { 
+  background: rgba(245,158,11,0.15); 
+  color: #d97706;
+  border: 1px solid rgba(245,158,11,0.3);
+}
+.method-delete { 
+  background: rgba(239,68,68,0.15); 
+  color: #dc2626;
+  border: 1px solid rgba(239,68,68,0.3);
+}
+
+.endpoint-path {
+  font-family: var(--font-mono);
+  color: var(--color-text-primary);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* ============================================
+   TECH STACK - Flower Pills
+   ============================================ */
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.tech-badge {
+  padding: 0.6rem 1.25rem;
+  background: white;
+  border: 1px solid rgba(236,72,153,0.2);
+  border-radius: 100px;
+  color: var(--color-fleur-600);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.tech-badge:hover {
+  background: var(--gradient-fleur);
+  color: white;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(236,72,153,0.25);
+}
+
+.tech-badge:nth-child(even) {
+  color: var(--color-bleu-600);
+  border-color: rgba(59,130,246,0.2);
+}
+
+.tech-badge:nth-child(even):hover {
+  background: var(--gradient-bleu);
+  color: white;
+  box-shadow: 0 8px 20px rgba(59,130,246,0.25);
+}
+
+/* ============================================
+   TIMELINE - Floral Path
+   ============================================ */
+
+.log-entries {
+  margin-top: 80px;
+  padding: 40px 0;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 50px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--gradient-mixed);
+  border-radius: 3px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -43px;
+  top: 0;
+  width: 36px;
+  height: 36px;
+  background: white;
+  border: 3px solid;
+  border-image: var(--gradient-mixed) 1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--color-fleur-600);
+  box-shadow: 0 4px 15px rgba(236,72,153,0.2);
+}
+
+.timeline-content {
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(236,72,153,0.1);
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.timeline-content h4 {
+  margin: 0 0 0.5rem;
+  color: var(--color-fleur-700);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.devlog-footer {
+  margin-top: 80px;
+  padding: 40px;
+  text-align: center;
+  border-top: 1px solid rgba(236,72,153,0.1);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.footer-flower {
+  font-size: 2rem;
+  animation: spin-slow 10s linear infinite;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   ARCHITECTURE DIAGRAM
+   ============================================ */
+
+.architecture-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.5);
+  border-radius: 20px;
+}
+
+.layer {
+  padding: 1rem 2rem;
+  background: white;
+  border: 2px solid rgba(236,72,153,0.2);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  width: 100%;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.layer:hover {
+  border-color: var(--color-fleur-400);
+  color: var(--color-fleur-600);
+  transform: scale(1.02);
+}
+
+.layer.highlight {
+  background: var(--gradient-fleur);
+  color: white;
+  border-color: transparent;
+}
+
+.arrow {
+  color: var(--color-fleur-400);
+  font-size: 1.5rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .hero-title { font-size: 2rem; }
+  .photo-frame { width: 200px; height: 200px; }
+  .flower-deco { display: none; }
+  .bento-cell { padding: 1.5rem; }
+}
